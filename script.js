@@ -1,75 +1,77 @@
-// --- Thuật toán tính ô ---
-document.getElementById("calcBtn").addEventListener("click", () => {
-  const day = parseInt(document.getElementById("day").value);
-  const month = parseInt(document.getElementById("month").value);
-  const resultDiv = document.getElementById("result");
+let dotTimer=null;
+function startDots(){
+  const d=document.getElementById('dots');
+  let n=1;
+  d.textContent='.';
+  dotTimer=setInterval(()=>{n=(n%3)+1;d.textContent='.'.repeat(n);},420);
+}
+function stopDots(){
+  clearInterval(dotTimer);
+  document.getElementById('dots').textContent='';
+}
 
-  if (isNaN(day) || isNaN(month) || day < 1 || month < 1 || day > 31 || month > 12) {
-    resultDiv.textContent = "Vui lòng nhập ngày tháng hợp lệ.";
+function isValidDateInputs(day,month){
+  if(!Number.isFinite(day)||!Number.isFinite(month))return false;
+  if(month<1||month>12)return false;
+  const year=new Date().getFullYear();
+  const daysInMonth=new Date(year,month,0).getDate();
+  return day>=1&&day<=daysInMonth;
+}
+
+function tinhO(){
+  const dayEl=document.getElementById('day');
+  const monthEl=document.getElementById('month');
+  const loading=document.getElementById('loading');
+  const result=document.getElementById('result');
+  const placeholder=document.getElementById('imagePlaceholder');
+
+  const day=parseInt(dayEl.value,10);
+  const month=parseInt(monthEl.value,10);
+
+  result.style.opacity=0;
+  result.textContent='';
+  placeholder.style.display='none';
+  placeholder.style.opacity=0;
+
+  if(!isValidDateInputs(day,month)){
+    result.style.opacity=1;
+    result.style.color='#8b0000';
+    result.textContent='Ngày tháng không hợp lệ!';
     return;
   }
 
-  // Kiểm tra hợp lệ cơ bản (ví dụ tháng 2 không quá 29)
-  const maxDays = [0,31,29,31,30,31,30,31,31,30,31,30,31];
-  if (day > maxDays[month]) {
-    resultDiv.textContent = "Ngày không hợp lệ trong tháng này.";
-    return;
-  }
+  loading.style.display='block';
+  startDots();
 
-  const steps = [1, 2, 1, 2, 1, 2, 1, 2];
-  let pos = 0;
+  setTimeout(()=>{
+    stopDots();
+    loading.style.display='none';
 
-  // Đếm tháng
-  for (let i = 1; i <= month; i++) {
-    pos = (pos + steps[(i - 1) % 8]) % 8;
-  }
-  // Đếm ngày
-  for (let i = 1; i <= day; i++) {
-    pos = (pos + 1) % 8;
-  }
-  const box = pos === 0 ? 8 : pos;
+    const weights=[1,2,1,2,1,2,1,2];
+    let total=0,idx=0;
+    while(true){
+      total+=weights[idx];
+      if(total>=month)break;
+      idx=(idx+1)%8;
+    }
+    const finalIndex=(idx+(day-1))%8;
+    const cell=finalIndex+1;
 
-  const meanings = {
-    1: "(Sinh - tốt)",
-    2: "(Chấn - xấu)",
-    3: "(Tốn - xấu)",
-    4: "(Ly - tốt)",
-    5: "(Khôn - xấu)",
-    6: "(Đoài - xấu)",
-    7: "(Càn - tốt)",
-    8: "(Hưu - xấu)",
-  };
+    const names=["Sinh","Chấn","Tốn","Ly","Khôn","Đoài","Càn","Hưu"];
+    const goodBad=["tốt","xấu","xấu","tốt","xấu","xấu","tốt","xấu"];
+    const state=goodBad[finalIndex];
+    const name=names[finalIndex];
 
-  resultDiv.innerHTML = `Kết quả: Ô số ${box} ${meanings[box]}`;
-  document.getElementById("installBtn").style.display = "none";
+    const color=state==='tốt'?'#065f46':'#7b1a1a';
+    result.style.color=color;
+    result.innerHTML=`Kết quả: <strong>${name}</strong> — (<span style="color:${color}">${state}</span>)<br><small style="color:var(--muted)">Vị trí ô: ${cell} (bạn có thể xem hình minh họa bên dưới)</small>`;
+    result.style.opacity=1;
 
-  // Hiện khung hình sau khi có kết quả
-  const img = document.createElement("img");
-  img.src = "vi_tri.png"; // bạn thay bằng hình minh họa sau này
-  img.alt = "Vị trí minh họa";
-  img.style.marginTop = "15px";
-  img.style.maxWidth = "100%";
-  resultDiv.appendChild(img);
-});
+    // Hiện khu vực hình minh họa
+    setTimeout(()=>{
+      placeholder.style.display='block';
+      requestAnimationFrame(()=>{placeholder.style.opacity=1;});
+    },400);
 
-// --- PWA cài đặt ---
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('installBtn').style.display = 'inline-block';
-});
-
-document.getElementById('installBtn').addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') console.log('User accepted install');
-    deferredPrompt = null;
-  }
-});
-
-// --- Đăng ký service worker ---
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
+  },900);
 }
