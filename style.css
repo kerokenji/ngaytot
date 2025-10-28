@@ -1,0 +1,65 @@
+body {
+  font-family: "Noto Serif", serif;
+  background-color: #f6f0e1;
+  color: #3a2e1f;
+  text-align: center;
+  padding: 40px;
+}
+
+.container {
+  max-width: 400px;
+  margin: auto;
+  background: #fffaf0;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #5b3b1b;
+}
+
+.input-group {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 60px;
+  padding: 6px;
+  border: 1px solid #cbb27a;
+  border-radius: 6px;
+  text-align: center;
+  background-color: #fffbe8;
+}
+
+button {
+  background-color: #d4b483;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #c29a64;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: #4a3210;
+  min-height: 60px;
+}
