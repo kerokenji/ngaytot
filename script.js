@@ -107,6 +107,7 @@ function tinhO() {
       <div style="font-weight:700;color:#3b2f2f;">Giờ xấu:</div>
       <div style="color:#7b1a1a;">${badText}</div>
     `;
+    result.style.textAlign = 'left';
     result.style.opacity = 1;
 
     // Hiệu ứng hiện hình minh họa như cũ
