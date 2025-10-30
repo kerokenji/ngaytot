@@ -110,10 +110,15 @@ function tinhO() {
     result.style.textAlign = 'left';
     result.style.opacity = 1;
 
-    // Hiệu ứng hiện hình minh họa như cũ
-    setTimeout(() => {
-      placeholder.style.display = 'block';
-      requestAnimationFrame(() => { placeholder.style.opacity = 1; });
-    }, 400);
+// Hiện khu vực hình minh họa
+setTimeout(()=>{
+  placeholder.style.display='block';
+  requestAnimationFrame(()=>{
+    placeholder.style.opacity=1;
+    // Hiện hình minh họa (nếu có)
+    const img = document.getElementById('illustration');
+    if (img) img.style.display = 'block';
+  });
+},400);
   }, 900);
 }
