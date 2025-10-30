@@ -120,5 +120,5 @@ setTimeout(()=>{
     if (img) img.style.display = 'block';
   });
 },400);
-  }, 1500);
+  }, 2500);
 }
