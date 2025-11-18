@@ -1,23 +1,24 @@
 // --- Firebase config --- //
-// Import the functions you need from the SDKs you need
-import { getDatabase, ref, onValue, runTransaction } from "firebase/database";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBAunDjIXjlrpifu31EaFHTrVMAdWETA20",
-  authDomain: "tinhngaytot-visit-count.firebaseapp.com",
-  databaseURL: "https://tinhngaytot-visit-count-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tinhngaytot-visit-count",
-  storageBucket: "tinhngaytot-visit-count.firebasestorage.app",
-  messagingSenderId: "759681130080",
-  appId: "1:759681130080:web:b10a02259c2131f0992d05"
-};
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBAunDjIXjlrpifu31EaFHTrVMAdWETA20",
+    authDomain: "tinhngaytot-visit-count.firebaseapp.com",
+    databaseURL: "https://tinhngaytot-visit-count-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tinhngaytot-visit-count",
+    storageBucket: "tinhngaytot-visit-count.firebasestorage.app",
+    messagingSenderId: "759681130080",
+    appId: "1:759681130080:web:b10a02259c2131f0992d05"
+  };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app); 
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
 
 // --- Lấy ngày hiện tại --- //
 const now = new Date();
