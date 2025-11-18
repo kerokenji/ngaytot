@@ -1,16 +1,22 @@
 // --- Firebase config --- //
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyXXXXXXX",
-  authDomain: "visit-counter.firebaseapp.com",
-  databaseURL: "https://visit-counter-default-rtdb.firebaseio.com",
-  projectId: "visit-counter",
-  storageBucket: "visit-counter.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcd1234"
+  apiKey: "AIzaSyBAunDjIXjlrpifu31EaFHTrVMAdWETA20",
+  authDomain: "tinhngaytot-visit-count.firebaseapp.com",
+  databaseURL: "https://tinhngaytot-visit-count-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tinhngaytot-visit-count",
+  storageBucket: "tinhngaytot-visit-count.firebasestorage.app",
+  messagingSenderId: "759681130080",
+  appId: "1:759681130080:web:b10a02259c2131f0992d05"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 // --- Lấy ngày hiện tại --- //
 const now = new Date();
