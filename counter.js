@@ -17,6 +17,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getDatabase(app); 
 
 // --- Lấy ngày hiện tại --- //
 const now = new Date();
